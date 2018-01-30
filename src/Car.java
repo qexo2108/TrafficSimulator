@@ -26,6 +26,7 @@ public class Car
     private int currentSpeed, maxSpeed;
     private int initialX, initialY;
     private int road, lane;
+    private boolean canMove = true;
 
     private int i=0;
     public void update(MapLoader map)
@@ -41,7 +42,7 @@ public class Car
         else
         {
             i++;
-            if (i >= Constants.accelerationLatency && !carDetection(map, Constants.safetySpace/2))
+            if (i >= Constants.accelerationLatency && !carDetection(map, Constants.safetySpace))
             {
                 speedUp();
                 i = 0;
@@ -93,33 +94,46 @@ public class Car
                         map.roads[road].lanes[lane][i] = true;
             }
         }
-        x += dx;
-        y += dy;
-        graphics.relocate(x, y);
+
+        if(canMove)
+        {
+            x += dx;
+            y += dy;
+            graphics.relocate(x, y);
+        }
 
         // Check whether to relocate car from "dead zone" back to map
         if(x > Constants.windowWidth + Constants.carLength + Constants.safetySpace || x < -(Constants.carLength + Constants.safetySpace) ||
                 y > Constants.windowHeight + Constants.carLength + Constants.safetySpace || y < -(Constants.carLength + Constants.safetySpace) ||
                 (parkingDetection(map.parkings, map.p) && currentSpeed == 0) )
         {
-            if(vx!=0){
-                if(!map.roads[road].lanes[lane][initialX] && !map.roads[road].lanes[lane][initialX+Constants.carLength])
+            canMove = false;
+            if(vx != 0)
+            {
+                if(!map.roads[road].lanes[lane][initialX] && !map.roads[road].lanes[lane][initialX+Constants.carLength] &&
+                        !map.roads[road].lanes[lane][initialX-Constants.safetySpace] && !map.roads[road].lanes[lane][initialX+Constants.carLength+Constants.safetySpace])
                 {
                     if(parkingDetection(map.parkings, map.p))
                         for(int i=getLeftX(); i<=getRightX(); i++)
                             map.roads[road].lanes[lane][i] = false;
                     x = initialX;
                     y = initialY;
-                } }
-            else {
-                if(!map.roads[road].lanes[lane][initialY] && !map.roads[road].lanes[lane][initialY+Constants.carLength])
+                    canMove = true;
+                }
+            }
+            else // (vy != 0)
+            {
+                if(!map.roads[road].lanes[lane][initialY] && !map.roads[road].lanes[lane][initialY+Constants.carLength] &&
+                        !map.roads[road].lanes[lane][initialY-Constants.safetySpace] && !map.roads[road].lanes[lane][initialY+Constants.carLength+Constants.safetySpace])
                 {
                     if(parkingDetection(map.parkings, map.p))
                         for(int i=getUpperY(); i<=getLowerY(); i++)
                             map.roads[road].lanes[lane][i] = false;
                     x = initialX;
                     y = initialY;
-                } }
+                    canMove = true;
+                }
+            }
 
         }
     }
