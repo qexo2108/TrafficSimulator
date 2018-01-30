@@ -51,7 +51,7 @@ public class Car
         dx = vx * currentSpeed;
         dy = vy * currentSpeed;
 
-        
+
         // Updating lane occupancy table
         if(dx != 0)
         {
