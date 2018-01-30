@@ -33,7 +33,7 @@ public class Car
         dx = vx * currentSpeed;
         dy = vy * currentSpeed;
 
-        if(collisionDetection(map.junctions, map.j) || parkingDetection(map.parkings, map.p) || carDetection(map))
+        if(collisionDetection(map.junctions, map.j) || parkingDetection(map.parkings, map.p) || carDetection(map, 0))
         {
             i = 0;
             slowDown();
@@ -41,24 +41,23 @@ public class Car
         else
         {
             i++;
-            if (i == Constants.accelerationLatency)
+            if (i >= Constants.accelerationLatency && !carDetection(map, Constants.safetySpace/2))
             {
                 speedUp();
                 i = 0;
             }
         }
 
-
         dx = vx * currentSpeed;
         dy = vy * currentSpeed;
 
-
+        
         // Updating lane occupancy table
         if(dx != 0)
         {
             if(dx > 0)
             {
-                for (int i = getLeftX(); i < getLeftX() + dx; i++)
+                for (int i = getLeftX(); i <= getLeftX() + dx; i++)
                     map.roads[road].lanes[lane][i] = false;
                 if(getRightX() < Constants.windowWidth)
                     for (int i = getRightX(); i < getRightX() + dx; i++)
@@ -137,25 +136,26 @@ public class Car
             currentSpeed++;
     }
 
-    private boolean carDetection(MapLoader map)
+    private boolean carDetection(MapLoader map, int additionalSpace)
     {
+        int safetySpace = Constants.safetySpace + additionalSpace;
         if(vx != 0)
         {
             if(vx > 0)
-                return(map.roads[road].lanes[lane][getRightX()+dx+Constants.safetySpace]);
+                return(map.roads[road].lanes[lane][getRightX()+dx+safetySpace]);
             else
-                if(getLeftX()+dx-Constants.safetySpace > 0)
-                    return(map.roads[road].lanes[lane][getLeftX()+dx-Constants.safetySpace]);
+                if(getLeftX()+dx-safetySpace > 0)
+                    return(map.roads[road].lanes[lane][getLeftX()+dx-safetySpace]);
                 else
                     return false;
         }
         else // vy != 0
         {
             if(vy > 0)
-                return(map.roads[road].lanes[lane][ getLowerY() + dy + Constants.safetySpace]);
+                return(map.roads[road].lanes[lane][ getLowerY() + dy + safetySpace]);
             else
-            if(getUpperY() + dy - Constants.safetySpace  >  0)
-                return(map.roads[road].lanes[lane][getUpperY() + dy - Constants.safetySpace]);
+            if(getUpperY() + dy - safetySpace  >  0)
+                return(map.roads[road].lanes[lane][getUpperY() + dy - safetySpace]);
             else
                 return false;
         }

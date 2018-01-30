@@ -12,7 +12,7 @@ public final class Constants
 
     public static final int junctionRadius = 30;
     public static final Color junctionColor = Color.BLUE;
-    public static final int safetySpace = 15;
+    public static final int safetySpace = 14;
     // has to be bigger than sum (sp+..+3+2+1) of max speed of any vehicle
     // (because of each car slowing down before stopping)
 
