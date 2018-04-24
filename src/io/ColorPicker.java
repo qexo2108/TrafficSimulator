@@ -1,3 +1,5 @@
+package io;
+
 import javafx.scene.paint.Color;
 
 public final class ColorPicker

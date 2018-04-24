@@ -1,3 +1,5 @@
+package io;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -5,16 +7,18 @@ import javafx.scene.shape.Rectangle;
 import java.io.File;
 import java.util.Scanner;
 
+import simulation.*;
+
 public class MapLoader
 {
-    int r,j,c,p;
+    public int r,j,c,p;
 
-    Road[] roads;
-    Junction[] junctions;
-    Parking[] parkings;
-    Car[] cars;
+    public Road[] roads;
+    public Junction[] junctions;
+    public Parking[] parkings;
+    public Car[] cars;
 
-    Pane layout = new Pane();
+    private Pane layout = new Pane();
 
     public void load(String fileName)
     {
@@ -83,4 +87,10 @@ public class MapLoader
         for(int i=0; i<p; i++)
             layout.getChildren().add(parkings[i].graphics.getLayout());
     }
+
+    public Pane getLayout()
+    {
+        return layout;
+    }
+
 }

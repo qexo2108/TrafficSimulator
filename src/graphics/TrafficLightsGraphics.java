@@ -1,13 +1,17 @@
+package graphics;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import simulation.Constants;
+import simulation.TrafficLights;
 
 public class TrafficLightsGraphics
 {
 
-    TrafficLightsGraphics(int x, int y)
+    public TrafficLightsGraphics(int x, int y)
     {
-        hor = new Indicator(x-2*Constants.junctionRadius, y, Color.GREEN);
+        hor = new Indicator(x-2* Constants.junctionRadius, y, Color.GREEN);
         hor2 = new Indicator(x+2*Constants.junctionRadius, y, Color.GREEN);
         ver = new Indicator(x, y-2*Constants.junctionRadius, Color.RED);
         ver2 = new Indicator(x, y+2*Constants.junctionRadius, Color.RED);
@@ -46,7 +50,7 @@ public class TrafficLightsGraphics
         }
     }
 
-    Pane getLayout()
+    public Pane getLayout()
     {
         return layout;
     }

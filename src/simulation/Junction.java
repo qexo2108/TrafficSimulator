@@ -1,7 +1,10 @@
+package simulation;
+
+import graphics.JunctionGraphics;
 
 public class Junction
 {
-    Junction(int x, int y, int interval)
+    public Junction(int x, int y, int interval)
     {
         this.x = x;
         this.y = y;
@@ -11,8 +14,8 @@ public class Junction
         graphics = new JunctionGraphics(x, y, lights.graphics.getLayout());
     }
 
-    JunctionGraphics graphics;
-    TrafficLights lights;
+    public JunctionGraphics graphics;
+    public TrafficLights lights;
 
     private int x;
     private int y;

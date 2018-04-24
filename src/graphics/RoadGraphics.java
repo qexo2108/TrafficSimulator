@@ -1,9 +1,14 @@
+package graphics;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import simulation.Road;
+
+import simulation.Constants;
 
 public class RoadGraphics
 {
-    RoadGraphics(int x, int y, Road.types type)
+    public RoadGraphics(int x, int y, Road.types type)
     {
         Rectangle lane1Rect;
         Rectangle lane2Rect;

@@ -1,3 +1,5 @@
+package simulation;
+
 import javafx.scene.paint.Color;
 
 public final class Constants

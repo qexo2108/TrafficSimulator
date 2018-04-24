@@ -1,4 +1,4 @@
-package auxiliary;
+package auxiliary.demos;
 
 import static java.lang.System.err;
 import java.lang.reflect.Field;

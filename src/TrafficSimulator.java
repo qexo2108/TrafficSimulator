@@ -5,6 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import io.MapLoader;
+import simulation.Constants;
+
 
 public class TrafficSimulator extends Application {
 
@@ -20,9 +23,11 @@ public class TrafficSimulator extends Application {
         MapLoader map = new MapLoader();
         map.load(path);
 
-        AnimationTimer timer = new AnimationTimer() {
+        AnimationTimer timer = new AnimationTimer()
+        {
             @Override
-            public void handle(long now) {
+            public void handle(long now)
+            {
                 for (int i = 0; i < map.j; i++)
                     map.junctions[i].lights.update();
 
@@ -61,7 +66,7 @@ public class TrafficSimulator extends Application {
 
 
         Pane layout = new Pane();
-        layout.getChildren().addAll(map.layout, button1, button2,button3,button4);
+        layout.getChildren().addAll(map.getLayout(), button1, button2,button3,button4);
 
         Scene scene = new Scene(layout, Constants.windowWidth, Constants.windowHeight);
 

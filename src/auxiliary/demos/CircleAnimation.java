@@ -1,4 +1,4 @@
-package auxiliary;
+package auxiliary.demos;
 
 import javafx.animation.*;
 import javafx.application.Application;

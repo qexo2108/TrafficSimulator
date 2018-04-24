@@ -1,4 +1,4 @@
-package auxiliary;
+package auxiliary.demos;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;

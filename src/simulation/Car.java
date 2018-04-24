@@ -1,8 +1,14 @@
+package simulation;
+
 import javafx.scene.paint.Color;
+
+import graphics.CarGraphics;
+import io.MapLoader;
+
 
 public class Car
 {
-    Car(int x, int y, int vx, int vy, int speed, int road, int lane, Color desiredColor)
+    public Car(int x, int y, int vx, int vy, int speed, int road, int lane, Color desiredColor)
     {
         this.x=x;
         this.y=y;
@@ -18,7 +24,7 @@ public class Car
         graphics = new CarGraphics(x,y, desiredColor, vx);
     }
 
-    CarGraphics graphics;
+    public CarGraphics graphics;
 
 
     private int x, y, vx, vy;
@@ -48,12 +54,35 @@ public class Car
                 i = 0;
             }
         }
-
         dx = vx * currentSpeed;
         dy = vy * currentSpeed;
 
+        if(canMove)
+        {
+            updateLaneOccupancyTable(map);
+            x += dx;
+            y += dy;
+            graphics.relocate(x, y);
+        }
 
-        // Updating lane occupancy table
+        // Check whether to relocate car from "dead zone" back to map
+        goBackToMap(map);
+    }
+
+    private void slowDown()
+    {
+        if(currentSpeed > 0)
+            currentSpeed--;
+    }
+
+    private void speedUp()
+    {
+        if(currentSpeed < maxSpeed)
+            currentSpeed++;
+    }
+
+    private void updateLaneOccupancyTable(MapLoader map)
+    {
         if(dx != 0)
         {
             if(dx > 0)
@@ -94,15 +123,10 @@ public class Car
                         map.roads[road].lanes[lane][i] = true;
             }
         }
+    }
 
-        if(canMove)
-        {
-            x += dx;
-            y += dy;
-            graphics.relocate(x, y);
-        }
-
-        // Check whether to relocate car from "dead zone" back to map
+    private void goBackToMap(MapLoader map)
+    {
         if(x > Constants.windowWidth + Constants.carLength + Constants.safetySpace || x < -(Constants.carLength + Constants.safetySpace) ||
                 y > Constants.windowHeight + Constants.carLength + Constants.safetySpace || y < -(Constants.carLength + Constants.safetySpace) ||
                 (parkingDetection(map.parkings, map.p) && currentSpeed == 0) )
@@ -138,17 +162,6 @@ public class Car
         }
     }
 
-    private void slowDown()
-    {
-        if(currentSpeed > 0)
-            currentSpeed--;
-    }
-
-    private void speedUp()
-    {
-        if(currentSpeed < maxSpeed)
-            currentSpeed++;
-    }
 
     private boolean carDetection(MapLoader map, int additionalSpace)
     {

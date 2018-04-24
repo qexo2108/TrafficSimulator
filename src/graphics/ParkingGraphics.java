@@ -1,9 +1,13 @@
+package graphics;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
+import simulation.Constants;
+
 public class ParkingGraphics
 {
-    ParkingGraphics(int x, int y)
+    public ParkingGraphics(int x, int y)
     {
         Rectangle rect = new Rectangle(x, y, Constants.parkingWidth, Constants.parkingHeight);
         rect.setFill(Constants.parkingColor);

@@ -1,12 +1,16 @@
+package graphics;
+
 import javafx.animation.RotateTransition;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import simulation.Constants;
+
 public class CarGraphics
 {
 
-    CarGraphics(int x, int y, Color color, int vx)
+    public CarGraphics(int x, int y, Color color, int vx)
     {
         if(vx == 0)
             rotate();
@@ -26,7 +30,7 @@ public class CarGraphics
         rt.setToAngle(90);
         rt.play();
     }
-    void relocate(int x, int y)
+    public void relocate(int x, int y)
     {
         rect.relocate(x,y);
     }

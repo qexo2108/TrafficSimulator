@@ -1,3 +1,7 @@
+package simulation;
+
+import graphics.TrafficLightsGraphics;
+
 public class TrafficLights
 {
     public enum states {

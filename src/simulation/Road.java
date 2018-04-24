@@ -1,7 +1,10 @@
+package simulation;
+
+import graphics.*;
 
 public class Road
 {
-    Road(int x, int y, types type)
+    public Road(int x, int y, types type)
     {
         this.x = x;
         this.y = y;
@@ -30,7 +33,7 @@ public class Road
         graphics = new RoadGraphics(x,y, type);
     }
 
-    enum types
+    public enum types
     {
         vertical,
         horizontal
@@ -38,7 +41,7 @@ public class Road
 
     private int x,y;
     boolean[][] lanes = new boolean[2][];
-    RoadGraphics graphics;
+    public RoadGraphics graphics;
 
 
     public int getX() {

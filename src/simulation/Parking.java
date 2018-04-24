@@ -1,3 +1,6 @@
+package simulation;
+
+import graphics.*;
 
 public class Parking
 {
@@ -10,7 +13,7 @@ public class Parking
     }
 
     private int x, y;
-    ParkingGraphics graphics;
+    public ParkingGraphics graphics;
 
 
     int getLeftX()

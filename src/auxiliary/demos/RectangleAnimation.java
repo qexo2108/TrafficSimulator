@@ -1,4 +1,4 @@
-package auxiliary;
+package auxiliary.demos;
 
 import javafx.animation.Animation;
 import javafx.animation.FillTransition;
